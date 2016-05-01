@@ -1,0 +1,71 @@
+#!/bin/bash
+#PBS -l walltime=70:00:00
+#PBS -l nodes=1:ppn=1
+#PBS -t 1-41
+#PBS -q @hades
+#PBS -e /RQexec/sotelo/results/handwriting/cluster_files/$PBS_JOBID.err
+#PBS -o /RQexec/sotelo/results/handwriting/cluster_files/$PBS_JOBID.out
+
+echo "New job started."
+echo $PBS_JOBID
+# echo $PBS_ARRAYID
+
+echo "JOB ID:"
+JOB_ID=$(cut -f1 -d"[" <<< $PBS_JOBID)
+JOB_ID=$(cut -f1 -d"." <<< $JOB_ID)
+JOB_ID=$JOB_ID\_$PBS_ARRAYID
+echo $JOB_ID
+
+echo "Creating directories."
+mkdir /lscratch/sotelo
+mkdir /lscratch/sotelo/data
+mkdir /lscratch/sotelo/data/handwriting
+mkdir /lscratch/sotelo/results
+mkdir /lscratch/sotelo/results/handwriting
+mkdir /lscratch/sotelo/results/handwriting/config
+mkdir /lscratch/sotelo/results/handwriting/pkl
+mkdir /lscratch/sotelo/results/handwriting/progress
+mkdir /lscratch/sotelo/results/handwriting/samples
+
+echo "Directories created."
+
+cd $HOME/code
+
+echo "Data path is:"
+export FUEL_DATA_PATH=/lscratch/sotelo/data
+echo $FUEL_DATA_PATH
+
+FILE=$FUEL_DATA_PATH/handwriting/handwriting.hdf5
+
+if [ -f $FILE ];
+then echo "File exists: $FILE"
+else
+   echo "Copying file"
+   cp -v $SCRATCH/data/handwriting/* $FUEL_DATA_PATH/handwriting/
+fi
+
+echo "Finished copying file in:"
+echo $FILE
+
+export RESULTS_DIR=/lscratch/sotelo/results
+cd scribe
+
+DICT_FILE=/RQusagers/sotelo/code/pepper/hades/handwriting_dict.txt
+CONFIG_VARS=$(head -n $PBS_ARRAYID $DICT_FILE | tail -n1)
+echo $CONFIG_VARS
+
+echo "Training started:"
+THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python train.py \
+    --experiment_name $JOB_ID \
+    --time_limit 69.5 \
+    $CONFIG_VARS &
+
+TRAINER_PID=$!
+wait $TRAINER_PID
+echo "Training finished."
+
+echo "Transfering files back."
+rsync -aP /lscratch/sotelo/results/handwriting/* /RQexec/sotelo/results/handwriting/
+echo "Transfer finished."
+
+echo "Finished program."

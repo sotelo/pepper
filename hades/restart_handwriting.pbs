@@ -1,0 +1,89 @@
+#!/bin/bash
+#PBS -l walltime=00:10:00
+#PBS -l nodes=1:ppn=1
+#PBS -q @hades
+#PBS -e /RQexec/sotelo/results/handwriting/cluster_files/$PBS_JOBID.err
+#PBS -o /RQexec/sotelo/results/handwriting/cluster_files/$PBS_JOBID.out
+
+echo "New job started."
+echo $PBS_JOBID
+
+echo "JOB ID:"
+JOB_ID=$(cut -f1 -d"[" <<< $PBS_JOBID)
+JOB_ID=$(cut -f1 -d"." <<< $JOB_ID)
+echo $JOB_ID
+
+if [ -n "$LOAD_FROM" ];
+then
+    echo "LOAD FROM: $LOAD_FROM"
+else
+    # No direction to load from
+    echo "STARTING NEW EXPERIMENT. NO LOAD."
+fi
+
+echo "CONFIG: $CONFIG_VARS"
+
+echo "Creating directories."
+mkdir /lscratch/sotelo
+mkdir /lscratch/sotelo/data
+mkdir /lscratch/sotelo/data/handwriting
+mkdir /lscratch/sotelo/results
+mkdir /lscratch/sotelo/results/handwriting
+mkdir /lscratch/sotelo/results/handwriting/config
+mkdir /lscratch/sotelo/results/handwriting/pkl
+mkdir /lscratch/sotelo/results/handwriting/progress
+mkdir /lscratch/sotelo/results/handwriting/samples
+
+echo "Directories created."
+
+cd $HOME/code/scribe
+
+echo "Data path is:"
+export FUEL_DATA_PATH=/lscratch/sotelo/data
+echo $FUEL_DATA_PATH
+
+FILE=$FUEL_DATA_PATH/handwriting/handwriting.hdf5
+
+if [ -f $FILE ];
+then echo "File exists: $FILE"
+else
+   echo "Copying file"
+   cp -v $SCRATCH/data/handwriting/* $FUEL_DATA_PATH/handwriting/
+fi
+
+echo "Finished copying file in:"
+echo $FILE
+
+FILE=$RESULTS_DIR/handwriting/pkl/best_$LOAD_FROM\.tar
+
+export RESULTS_DIR=/lscratch/sotelo/results
+
+if [ -f $FILE ] && [ -n "$LOAD_FROM" ];
+then
+    echo "Loading file: $FILE"
+    cp $FILE $RESULTS_DIR/handwriting/pkl
+
+    THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python train.py \
+        --experiment_name $JOB_ID --load_experiment $LOAD_FROM \
+        --time_limit 0.125 --save_every 10 \
+        $CONFIG_VARS &
+    TRAINER_PID=$!
+
+else
+    echo "Starting new experiment: $NAME"
+    THEANO_FLAGS=mode=FAST_RUN,device=gpu,floatX=float32 python train.py \
+        --experiment_name $JOB_ID \
+        --time_limit 0.125 --save_every 10 \
+        $CONFIG_VARS &
+    TRAINER_PID=$!
+fi
+
+TRAINER_PID=$!
+wait $TRAINER_PID
+echo "Training finished."
+
+echo "Transfering files back."
+rsync -aP /lscratch/sotelo/results/handwriting/* /RQexec/sotelo/results/handwriting/
+echo "Transfer finished."
+
+echo "Finished program."
