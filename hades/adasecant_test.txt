@@ -1,0 +1,19 @@
+--attention_type graves
+--attention_type graves --learning_rate 1e-4
+--attention_type graves --learning_rate 5e-4
+--attention_type graves --algorithm adasecant
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1
+--attention_type graves --algorithm adasecant --disable_adagrad 1
+--attention_type graves --algorithm adasecant --disable_normalization 1
+--attention_type graves --algorithm adasecant --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_adagrad 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_normalization 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_adagrad 1 --disable_normalization 1 
+--attention_type graves --algorithm adasecant --disable_adagrad 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_normalization 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_adagrad 1 --disable_normalization 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_normalization 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_adagrad 1 --disable_outlier_detection 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_adagrad 1 --disable_normalization 1
+--attention_type graves --algorithm adasecant --disable_variance_reduction 1 --disable_adagrad 1 --disable_normalization 1 --disable_outlier_detection 1

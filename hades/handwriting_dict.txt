@@ -1,41 +1,22 @@
-
---rnn_size 100
---rnn_size 800
---rnn_size 2000 --batch_size 8
---batch_size 1
---batch_size 4
---batch_size 50
---train_seq_length 30
---train_seq_length 300
---learning_rate .0001
---learning_rate .0005
---learning_rate .001
---sort_mult 1
---algorithm adasecant
---algorithm adasecant --rnn_size 100
---algorithm adasecant --rnn_size 800 --batch_size 8
---algorithm adasecant --rnn_size 1600 --batch_size 4
---algorithm adasecant --batch_size 1
---algorithm adasecant --batch_size 4
---algorithm adasecant --batch_size 50
---algorithm adasecant --train_seq_length 30
---algorithm adasecant --train_seq_length 300
---algorithm adasecant --num_mixture 1
---algorithm adasecant --num_mixture 6
---algorithm adasecant --num_mixture 100
---algorithm adasecant --num_mixture 1000
---algorithm adasecant --size_attention 1
---algorithm adasecant --size_attention 2
---algorithm adasecant --size_attention 100
---algorithm adasecant --attention_alignment 1
---algorithm adasecant --sort_mult 1
+--attention_type graves
+--attention_type graves --learning_rate 1e-4
+--attention_type graves --learning_rate 5e-4
+--attention_type graves --learning_rate 7e-4
+--attention_type graves --learning_rate 1e-3
+--attention_type graves --lr_schedule True
+--attention_type graves --learning_rate 1e-4 --lr_schedule True
+--attention_type graves --learning_rate 5e-4 --lr_schedule True
+--attention_type graves --learning_rate 7e-4 --lr_schedule True
+--attention_type graves --learning_rate 1e-3 --lr_schedule True
 --attention_type graves --algorithm adasecant
---attention_type graves --algorithm adasecant --rnn_size 100
---attention_type graves --algorithm adasecant --rnn_size 800
---attention_type graves --algorithm adasecant --rnn_size 1600 --batch_size 4
---attention_type graves --algorithm adasecant --train_seq_length 30
---attention_type graves --algorithm adasecant --train_seq_length 300
---attention_type graves --algorithm adasecant --size_attention 1
---attention_type graves --algorithm adasecant --size_attention 2
---attention_type graves --algorithm adasecant --size_attention 100
---attention_type graves --algorithm adasecant --attention_alignment 1
+
+--learning_rate 1e-4
+--learning_rate 5e-4
+--learning_rate 7e-4
+--learning_rate 1e-3
+--lr_schedule True
+--learning_rate 1e-4 --lr_schedule True
+--learning_rate 5e-4 --lr_schedule True
+--learning_rate 7e-4 --lr_schedule True
+--learning_rate 1e-3 --lr_schedule True
+--algorithm adasecant
