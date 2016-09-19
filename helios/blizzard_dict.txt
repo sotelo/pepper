@@ -1,0 +1,8 @@
+--model simple --rnn1_size 1000 --attention_type softmax --algorithm adasecant --num_freq 35
+--model simple --rnn1_size 1000 --attention_type graves --algorithm adasecant --num_freq 35
+--model simple --rnn1_size 1000 --attention_type softmax --algorithm adam --lr_schedule True --num_freq 35 
+--model simple --rnn1_size 1000 --attention_type graves --algorithm adam --lr_schedule True --num_freq 35
+--model simple --rnn1_size 1000 --attention_type softmax --algorithm adasecant --use_spectrum True
+--model simple --rnn1_size 1000 --attention_type graves --algorithm adasecant --use_spectrum True
+--model simple --rnn1_size 1000 --attention_type softmax --algorithm adam --lr_schedule True --use_spectrum True
+--model simple --rnn1_size 1000 --attention_type graves --algorithm adam --lr_schedule True --use_spectrum True
