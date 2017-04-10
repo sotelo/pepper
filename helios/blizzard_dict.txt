@@ -1,8 +1,48 @@
---model simple --rnn1_size 1000 --attention_type softmax --algorithm adasecant --num_freq 35
---model simple --rnn1_size 1000 --attention_type graves --algorithm adasecant --num_freq 35
---model simple --rnn1_size 1000 --attention_type softmax --algorithm adam --lr_schedule True --num_freq 35 
---model simple --rnn1_size 1000 --attention_type graves --algorithm adam --lr_schedule True --num_freq 35
---model simple --rnn1_size 1000 --attention_type softmax --algorithm adasecant --use_spectrum True
---model simple --rnn1_size 1000 --attention_type graves --algorithm adasecant --use_spectrum True
---model simple --rnn1_size 1000 --attention_type softmax --algorithm adam --lr_schedule True --use_spectrum True
---model simple --rnn1_size 1000 --attention_type graves --algorithm adam --lr_schedule True --use_spectrum True
+--which_cost MSE --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost MSE --rnn_h_dim 512 --learning_rate 1e-3 --speaker_dim 32
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --speaker_dim 32
+--which_cost GMM --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost GMM --rnn_h_dim 512 --learning_rate 1e-3 --speaker_dim 32
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --speaker_dim 32
+--which_cost MSE --rnn_h_dim 512 --use_speaker True --speaker_dim 32
+--which_cost MSE --rnn_h_dim 512 --speaker_dim 32
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --use_speaker True --speaker_dim 32
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --speaker_dim 32
+--which_cost GMM --rnn_h_dim 512 --use_speaker True --speaker_dim 32
+--which_cost GMM --rnn_h_dim 512 --speaker_dim 32
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --use_speaker True --speaker_dim 32
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --speaker_dim 32
+--which_cost MSE --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost MSE --learning_rate 1e-3 --speaker_dim 32
+--which_cost MSE --layer_normalization True --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost MSE --layer_normalization True --learning_rate 1e-3 --speaker_dim 32
+--which_cost GMM --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost GMM --learning_rate 1e-3 --speaker_dim 32
+--which_cost GMM --layer_normalization True --learning_rate 1e-3 --use_speaker True --speaker_dim 32
+--which_cost GMM --layer_normalization True --learning_rate 1e-3 --speaker_dim 32
+--which_cost MSE --use_speaker True --speaker_dim 32
+--which_cost MSE --speaker_dim 32
+--which_cost MSE --layer_normalization True --use_speaker True --speaker_dim 32
+--which_cost MSE --layer_normalization True --speaker_dim 32
+--which_cost GMM --use_speaker True --speaker_dim 32
+--which_cost GMM --speaker_dim 32
+--which_cost GMM --layer_normalization True --use_speaker True --speaker_dim 32
+--which_cost GMM --layer_normalization True --speaker_dim 32
+--which_cost MSE --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True 
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True 
+--which_cost GMM --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True 
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --learning_rate 1e-3 --use_speaker True
+--which_cost MSE --rnn_h_dim 512 --use_speaker True 
+--which_cost MSE --layer_normalization True --rnn_h_dim 512 --use_speaker True 
+--which_cost GMM --rnn_h_dim 512 --use_speaker True 
+--which_cost GMM --layer_normalization True --rnn_h_dim 512 --use_speaker True 
+--which_cost MSE --learning_rate 1e-3 --use_speaker True 
+--which_cost MSE --layer_normalization True --learning_rate 1e-3 --use_speaker True 
+--which_cost GMM --learning_rate 1e-3 --use_speaker True 
+--which_cost GMM --layer_normalization True --learning_rate 1e-3 --use_speaker True 
+--which_cost MSE --use_speaker True 
+--which_cost MSE --layer_normalization True --use_speaker True 
+--which_cost GMM --use_speaker True 
+--which_cost GMM --layer_normalization True --use_speaker True 
