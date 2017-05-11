@@ -1,0 +1,23 @@
+#!/bin/bash
+#PBS -A jvb-000-ag
+#PBS -l walltime=23:59:59
+#PBS -l nodes=1:gpus=1
+#PBS -e /scratch/jvb-000-aa/sotelo/results/cluster_files/$MOAB_JOBID.err
+#PBS -o /scratch/jvb-000-aa/sotelo/results/cluster_files/$MOAB_JOBID.out
+
+echo "New job started."
+echo "MOAB_JOBID: "$MOAB_JOBID
+echo "PBS_JOBID: "$PBS_JOBID
+echo "CONFIG: $CONFIG_VARS"
+
+cd $SCRATCH/code/lyrebird
+
+export DATA_PATH=$SCRATCH/data
+export TMP_PATH=$LSCRATCH
+
+export THEANO_FLAGS=mode=FAST_RUN,device=cuda,floatX=float32
+python main.py -s $CONFIG_VARS
+
+rsync -auvz $LSCRATCH/tts $SCRATCH/results
+
+echo "Finished program."
